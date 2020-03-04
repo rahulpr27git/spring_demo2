@@ -40,7 +40,7 @@ public class Interns {
     private LocalDateTime dateTime;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "details_id")
+    @PrimaryKeyJoinColumn
     @JsonProperty("details")
     @JsonIgnoreProperties("interns")
     private InternDetails internDetails;
