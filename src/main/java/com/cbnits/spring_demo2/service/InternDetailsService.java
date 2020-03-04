@@ -4,6 +4,7 @@ import com.cbnits.spring_demo2.repository.InternDetailsRepository;
 import com.cbnits.spring_demo2.repository.InternRepository;
 import com.cbnits.spring_demo2.resources.entity.InternDetails;
 import com.cbnits.spring_demo2.resources.entity.Interns;
+import com.cbnits.spring_demo2.resources.entity.embeddable.Address;
 import com.cbnits.spring_demo2.resources.request.InternDetailsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,12 @@ public class InternDetailsService {
 
     public Interns create(InternDetailsRequest request) {
 
-        InternDetails details = new InternDetails(
+
+        Address address = new Address(
                 request.getAddress(),
                 request.getZipCode()
         );
+        InternDetails details = new InternDetails(address);
 
         Optional<Interns> optionalInterns = repository.findById(request.getId());
         Interns interns = optionalInterns.get();

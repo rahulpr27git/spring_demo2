@@ -1,5 +1,6 @@
 package com.cbnits.spring_demo2.resources.entity;
 
+import com.cbnits.spring_demo2.resources.entity.embeddable.Address;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
@@ -19,11 +20,8 @@ public class InternDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "zip_code")
-    private Integer zipCode;
+    @Embedded
+    private Address address;
 
     @OneToOne(mappedBy = "internDetails")
     @JsonProperty("interns")
@@ -33,21 +31,24 @@ public class InternDetails {
     public InternDetails() {
     }
 
-    public InternDetails(String address, Integer zipCode) {
+    public InternDetails(Address address) {
         this.address = address;
-        this.zipCode = zipCode;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getAddress() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Address getAddress() {
         return address;
     }
 
-    public Integer getZipCode() {
-        return zipCode;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Interns getInterns() {
