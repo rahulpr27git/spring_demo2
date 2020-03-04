@@ -1,13 +1,17 @@
 package com.cbnits.spring_demo2.resources.entity;
 
 import com.cbnits.spring_demo2.resources.enums.Gender;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+/*@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)*/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "interns")
@@ -38,6 +42,7 @@ public class Interns {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
     @JsonProperty("details")
+    @JsonIgnoreProperties("interns")
     private InternDetails internDetails;
 
     public Interns() {

@@ -33,4 +33,9 @@ public class InternController {
     public void delete(@PathVariable("id") Long id) {
         service.delete(id);
     }
+
+    @GetMapping("/{id}")
+    public Interns get(@PathVariable("id") Long id) {
+        return service.get(id);
+    }
 }

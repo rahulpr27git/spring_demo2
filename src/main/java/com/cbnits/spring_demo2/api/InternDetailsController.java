@@ -1,5 +1,7 @@
 package com.cbnits.spring_demo2.api;
 
+import com.cbnits.spring_demo2.repository.InternDetailsRepository;
+import com.cbnits.spring_demo2.resources.entity.InternDetails;
 import com.cbnits.spring_demo2.resources.entity.Interns;
 import com.cbnits.spring_demo2.resources.request.InternDetailsRequest;
 import com.cbnits.spring_demo2.service.InternDetailsService;
@@ -18,9 +20,9 @@ public class InternDetailsController {
         return service.create(request);
     }
 
-    /*@DeleteMapping("/{id}")
-    public Interns delete(@PathVariable("id") Long id) {
-        return service.delete(id);
-    }*/
+    @GetMapping("/{id}")
+    public InternDetails get(@PathVariable("id") Long id) {
+        return service.get(id);
+    }
 
 }
