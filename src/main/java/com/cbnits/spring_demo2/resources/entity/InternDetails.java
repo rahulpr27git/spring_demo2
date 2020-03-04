@@ -1,7 +1,16 @@
 package com.cbnits.spring_demo2.resources.entity;
 
-import javax.persistence.*;
+import com.cbnits.spring_demo2.resources.entity.embeddable.Address;
+import com.fasterxml.jackson.annotation.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
+/*@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)*/
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "intern_details")
 public class InternDetails {
@@ -11,29 +20,42 @@ public class InternDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "address")
-    private String address;
+    @Embedded
+    private Address address;
 
-    @Column(name = "zip_code")
-    private Integer zipCode;
+    @OneToOne(mappedBy = "internDetails")
+    @JsonProperty("interns")
+    @JsonIgnoreProperties("address")
+    private Interns interns;
 
     public InternDetails() {
     }
 
-    public InternDetails(String address, Integer zipCode) {
+    public InternDetails(Address address) {
         this.address = address;
-        this.zipCode = zipCode;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getAddress() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Address getAddress() {
         return address;
     }
 
-    public Integer getZipCode() {
-        return zipCode;
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Interns getInterns() {
+        return interns;
+    }
+
+    public void setInterns(Interns interns) {
+        this.interns = interns;
     }
 }

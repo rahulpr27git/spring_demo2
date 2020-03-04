@@ -35,4 +35,8 @@ public class InternService {
         interns.setFirstName(request.getFirstName());
         return repository.save(interns);
     }
+
+    public Interns get(Long id) {
+        return repository.findById(id).get();
+    }
 }
