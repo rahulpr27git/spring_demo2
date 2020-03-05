@@ -6,6 +6,7 @@ import com.cbnits.spring_demo2.resources.entity.InternDetails;
 import com.cbnits.spring_demo2.resources.entity.Interns;
 import com.cbnits.spring_demo2.resources.entity.embeddable.Address;
 import com.cbnits.spring_demo2.resources.request.InternDetailsRequest;
+import com.cbnits.spring_demo2.util.exception.InvalidRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,16 @@ import java.util.Optional;
 @Service
 public class InternDetailsService {
 
-    @Autowired
     private InternRepository repository;
-
-    @Autowired
     private InternDetailsRepository detailsRepository;
 
-    public Interns create(InternDetailsRequest request) {
+    @Autowired
+    public InternDetailsService(InternRepository repository, InternDetailsRepository detailsRepository) {
+        this.repository = repository;
+        this.detailsRepository = detailsRepository;
+    }
 
+    public Interns create(InternDetailsRequest request) {
 
         Address address = new Address(
                 request.getAddress(),
@@ -30,6 +33,10 @@ public class InternDetailsService {
         InternDetails details = new InternDetails(address);
 
         Optional<Interns> optionalInterns = repository.findById(request.getId());
+
+        if (!optionalInterns.isPresent())
+            throw new InvalidRequestException(String.format("No intern found with id: %s", request.getId()));
+
         Interns interns = optionalInterns.get();
 
         interns.setInternDetails(details);
@@ -37,7 +44,12 @@ public class InternDetailsService {
     }
 
     public InternDetails get(Long id) {
-        return detailsRepository.findById(id).get();
+        Optional<InternDetails> optionalInternDetails = detailsRepository.findById(id);
+
+        if (!optionalInternDetails.isPresent())
+            throw new InvalidRequestException(String.format("No intern details found with id: %s", id));
+
+        return optionalInternDetails.get();
     }
 
     /*public Interns delete(Long id) {

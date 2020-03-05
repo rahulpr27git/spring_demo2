@@ -1,8 +1,15 @@
 package com.cbnits.spring_demo2.resources.entity.embeddable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class Address {
 
@@ -11,28 +18,4 @@ public class Address {
 
     @Column(name = "zip_code")
     private Integer zipCode;
-
-    public Address() {
-    }
-
-    public Address(String address, Integer zipCode) {
-        this.address = address;
-        this.zipCode = zipCode;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Integer getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(Integer zipCode) {
-        this.zipCode = zipCode;
-    }
 }
