@@ -1,17 +1,21 @@
 package com.cbnits.spring_demo2.resources.entity;
 
 import com.cbnits.spring_demo2.resources.enums.Gender;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /*@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id"
 )*/
+@Data
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "interns")
@@ -45,9 +49,6 @@ public class Interns {
     @JsonIgnoreProperties("interns")
     private InternDetails internDetails;
 
-    public Interns() {
-    }
-
     public Interns(String firstName, String lastName, Gender gender, LocalDateTime dateTime) {
        this(firstName, lastName, gender, dateTime, null);
     }
@@ -57,54 +58,6 @@ public class Interns {
         this.lastName = lastName;
         this.gender = gender;
         this.dateTime = dateTime;
-        this.internDetails = internDetails;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public InternDetails getInternDetails() {
-        return internDetails;
-    }
-
-    public void setInternDetails(InternDetails internDetails) {
         this.internDetails = internDetails;
     }
 }

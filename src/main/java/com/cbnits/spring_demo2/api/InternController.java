@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("v1/interns")
 public class InternController {
@@ -16,7 +18,7 @@ public class InternController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Interns create(@RequestBody InternRequest request) {
+    public Interns create(@RequestBody @Valid InternRequest request) {
         return service.create(request);
     }
 
